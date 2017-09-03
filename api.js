@@ -64,5 +64,20 @@ module.exports = {
       }else{
         return null;
   }
+},
+
+  getDailyQuote: function(){
+    var QuotesArray = []
+    var quotesRef = firebase.database().ref('daily-quote');
+    quotesRef.on("value", function(quotes) {
+      quotes.forEach(function(snapshot){
+       QuotesArray.push(snapshot.val().content)
+     });
+    })
+    if(QuotesArray.length > 0){
+      return QuotesArray[0];
+}else{
+  return null;
 }
+  }
 };
